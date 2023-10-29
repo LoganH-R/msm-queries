@@ -1,0 +1,53 @@
+<h1><%= params.fetch("users_actor") %> appeared in the following movies:</h1>
+
+<table border="1">
+  <tr>
+    <th>
+      Title
+    </th>
+
+    <th>
+      Year
+    </th>
+
+    <th>
+      Director
+    </th>
+
+    <th>
+      Character name
+    </th>
+
+    <th>
+    </th>
+  </tr>
+
+  <% @actor_characters.each do |a_character| %>
+    <tr>
+      <td>
+        <% character_movie = Movie.where({ :id => a_character.movie_id }).first %>
+        <%= character_movie.title %>
+      </td>
+
+      <td>
+        <%= character_movie.year %>
+      </td>
+
+      <td>
+        <% director_of_character = Director.where({ :id => character_movie.director_id}).first %>
+        <%= director_of_character.name %>
+      </td>
+
+      <td>
+        <%= a_character.name %>
+      </td>
+
+      <td>
+        <a href="/movies/<%= character_movie.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
+
+  <% end %>    
+</table>

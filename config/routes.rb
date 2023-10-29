@@ -11,4 +11,11 @@ Rails.application.routes.draw do
 
   get("/actors", { :controller => "misc", :action => "actors_list" })
   get("/actors/:actor_id", { :controller => "misc", :action => "find_actor" })
+
+  get("/search/movie", { :controller => "misc", :action => "search_movie" })
+  get("/search/movie/years", { :controller => "misc", :action => "search_movie_years" })
+  get("/pre-2000_movies", { :controller => "misc", :action => "before_2000_movies" })
+  get("/younger_directors", { :controller => "misc", :action => "younger_than_55" })
+  get("/search/director/films", {:controller => "misc", :action => "search_director_films" })
+  get("/search/actor/films", {:controller => "misc", :action => "search_actor_films" })
 end

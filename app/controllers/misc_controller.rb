@@ -71,4 +71,63 @@ class MiscController < ApplicationController
     
     render({ :template => "misc_templates/actor_individual_flexible" })
   end
+
+  def search_movie
+    search_movie_title = params.fetch("users_movie")
+    movie_activerecordrelation = Movie.where({ :title => search_movie_title })
+    @individual_movie = movie_activerecordrelation.first
+    director_of_movie_id = @individual_movie.director_id
+
+    movie_director_activerecordrelation = Director.where({ :id => director_of_movie_id })
+    @movie_director = movie_director_activerecordrelation.first
+
+    render({ :template => "misc_templates/search_movie" })
+  end
+
+  def search_movie_years
+    search_movie_title = params.fetch("users_movie_years")
+    movie_collection = Movie.where({ :title => search_movie_title })
+    @individual_movie = movie_collection.first
+    movie_year = @individual_movie.year
+    @time_ago = Time.now.year - movie_year
+
+    render({ :template => "misc_templates/search_movie_time_ago"})
+  end
+
+  def before_2000_movies
+    @movies_before_2000 = Movie.where("year < ?", 2000)
+    @directors = Director.all
+
+    render({ :template => "misc_templates/before_2000_movies" })
+  end
+
+  def younger_than_55
+    require "date"
+    start_date = 55.years.ago
+    end_date = Date.today
+    @directors_younger_than_55 = Director.where({ :dob => (start_date..end_date) })
+
+
+    render({ :template => "misc_templates/directors_younger_than_55" })
+  end
+
+  def search_director_films
+    search_director_movies = params.fetch("users_director")
+    @searched_director = Director.where({ :name => search_director_movies }).first
+    id_of_director = @searched_director.id
+    @director_movies = Movie.where({ :director_id => id_of_director})
+
+    render({ :template => "misc_templates/search_director_movies" })
+  end
+
+  def search_actor_films
+    @search_actor_movies = params.fetch("users_actor")
+    @searched_actor = Actor.where({ :name => @search_actor_movies }).first
+    id_of_actor = @searched_actor.id
+
+    @actor_characters = Character.where({ :actor_id => id_of_actor })
+
+    render({ :template => "misc_templates/search_actor_movies" })
+  end
+
 end

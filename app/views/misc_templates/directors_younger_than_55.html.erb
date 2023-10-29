@@ -1,0 +1,53 @@
+<h1>List of all directors younger than 55</h1>
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>
+      ID
+    </th>
+
+    <th>
+      Image
+    </th>
+
+    <th>
+      Name
+    </th>
+
+    <th>
+      Dob
+    </th>
+
+    <th>
+    </th>
+  </tr>
+
+  <% @directors_younger_than_55.each do |a_director| %>
+    <tr>
+      <td>
+        <%= a_director.id %>
+      </td>
+
+      <td>
+        <img src="<%= a_director.image %>" style="width:250px;">
+      </td>
+
+      <td>
+        <%= a_director.name %>
+      </td>
+
+      <td>
+        <%= a_director.dob %>
+      </td>
+
+      <td>
+        <a href="/directors/<%= a_director.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
+
+  <% end %>
+</table

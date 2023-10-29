@@ -1,0 +1,62 @@
+<h1>List of movies released before 2000</h1>
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>
+      ID
+    </th>
+
+    <th>
+      Image
+    </th>
+
+    <th>
+      Title
+    </th>
+
+    <th>
+      Year
+    </th>
+
+    <th>
+      Director
+    </th>
+
+    <th>
+    </th>
+  </tr>
+
+  <% @movies_before_2000.each do |a_movie| %>
+    <tr>
+      <td>
+        <%= a_movie.id %>
+      </td>
+
+      <td>
+        <img src="<%= a_movie.image %>" style="width:250px;">
+      </td>
+
+      <td>
+        <%= a_movie.title %>
+      </td>
+
+      <td>
+        <%= a_movie.year %>
+      </td>
+
+      <td>
+        <% director = @directors.where({ :id => a_movie.director_id }) %>
+        <%= director.first.name %>
+      </td>
+
+      <td>
+        <a href="/movies/<%= a_movie.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
+
+  <% end %>
+</table
