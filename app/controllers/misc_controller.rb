@@ -10,17 +10,19 @@ class MiscController < ApplicationController
   end
 
   def find_youngest_director
-    @directors = Director.all.order(:dob => :asc)
-    @youngest_director = @directors.last
+    @directors = Director.all
+    @youngest_director_dob = @directors.maximum(:dob)
+    @youngest_director = @directors.where({ :dob => @youngest_director_dob }).first
     @youngest_director_dob = @youngest_director.dob.strftime("%B %e, %Y")
 
     render({ :template => "misc_templates/director_youngest" })
   end
 
   def find_eldest_director
-    @directors = Director.all.order(:dob => :asc)
-    @eldest_director = @directors.first
-    @eldest_director_dob = @eldest_director.dob.strftime("%B %e, %Y")
+    @directors = Director.all
+    @eldest_director_dob = @directors.minimum(:dob)
+    @eldest_director = @directors.where({ :dob => @eldest_director_dob }).first
+    @eldest_director_dob = @eldest_director_dob.strftime("%B %e, %Y")
 
     render({ :template => "misc_templates/director_eldest" })
   end
@@ -43,7 +45,13 @@ class MiscController < ApplicationController
   end
 
   def find_movie
+    id_of_movie = params.fetch("movie_id")
+    movie_activerecordrelation = Movie.where({ :id => id_of_movie })
+    @individual_movie = movie_activerecordrelation.first
+    director_of_movie_id = @individual_movie.director_id
 
+    movie_director_activerecordrelation = Director.where({ :id => director_of_movie_id })
+    @movie_director = movie_director_activerecordrelation.first
 
     render({ :template => "misc_templates/movie_individual_flexible" })
   end
@@ -55,8 +63,12 @@ class MiscController < ApplicationController
   end
 
   def find_actor
+    id_of_actor = params.fetch("actor_id")
+    actor_activerecordrelation = Actor.where({ :id => id_of_actor })
+    @individual_actor = actor_activerecordrelation.first
 
-
+    @actor_characters = Character.where({ :actor_id => id_of_actor })
+    
     render({ :template => "misc_templates/actor_individual_flexible" })
   end
 end

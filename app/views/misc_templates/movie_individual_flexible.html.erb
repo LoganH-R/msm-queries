@@ -13,45 +13,42 @@
     Title
   </dt>
   <dd>
-    The Shawshank Redemption
+    <%= @individual_movie.title %>
   </dd>
 
   <dt>
     Year
   </dt>
   <dd>
-    1994
+    <%= @individual_movie.year %>
   </dd>
 
   <dt>
     Duration
   </dt>
   <dd>
-    142
+    <%= @individual_movie.duration %>
   </dd>
 
   <dt>
     Description
   </dt>
   <dd>
-    Framed in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope.
+    <%= @individual_movie.description %>
   </dd>
 
   <dt>
     Image
   </dt>
   <dd>
-    <img src="https://image.tmdb.org/t/p/w500/5KCVkau1HEl7ZzfPsKAPM0sMiKc.jpg" style="width:250px;">
+    <img src="<%= @individual_movie.image %>" style="width:250px;">
   </dd>
 
   <dt>
     Director
   </dt>
   <dd>
-    
-    
-
-    Frank Darabont
+    <%= @movie_director.name %>
   </dd>
 
   <dt>
